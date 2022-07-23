@@ -1,0 +1,94 @@
+service: aws-node-http-api-project
+frameworkVersion: '3'
+plugins:
+  - serverless-offline
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  tableName: ${self:custom.stage}-truckload
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: staging
+  # region: ap-southeast-1
+  region: us-east-1
+
+  environment:
+    # tableName: ${self:custom.tableName}
+    tableName: smart_truck
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:*
+        - s3:*
+
+
+
+functions:
+  create-driver:
+    handler: api/create-driver.createDriver
+    events:
+      - httpApi:
+          path: /add-driver
+          method: post
+  get-all-driver:
+    handler: api/get-all-driver.main
+    events:
+      - httpApi:
+          path: /get-all-driver
+          method: get
+  get-all-driver-by-status:
+    handler: api/get-all-driver-by-status.main
+    events:
+      - httpApi:
+          path: /get-all-driver-by-status
+          method: get
+  get-driver-by-id:
+    handler: api/get-driver-by-id.main
+    events:
+      - httpApi:
+          path: /get-driver-by-id
+          method: get
+  delete-driver-by-id:
+    handler: api/delete-driver-by-id.main
+    events:
+      - httpApi:
+          path: /delete-driver-by-id
+          method: delete
+  update-driver-by-id:
+    handler: api/update-driver-by-id.main
+    events:
+      - httpApi:
+          path: /update-driver-by-id
+          method: patch
+  create-order:
+    handler: api/create-order.createOrder
+    events:
+      - httpApi:
+          path: /add-order
+          method: post
+  udate-trip-status-by-id:
+    handler: api/udate-trip-status-by-id.main
+    events:
+      - httpApi:
+          path: /udate-trip-status-by-id
+          method: patch
+  add-trip-details-by-trip-id:
+    handler: api/add-trip-details-by-trip-id.main
+    events:
+      - httpApi:
+          path: /add-trip-details-by-trip-id
+          method: patch
+
+
+
+
+

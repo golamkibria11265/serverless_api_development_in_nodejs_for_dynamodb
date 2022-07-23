@@ -1,0 +1,23 @@
+Order Data:
+{
+    "type": "trip",
+    "id": "customer_kamal_01681525133",
+    "name": "kamal",
+    "phone": "1681525133",
+    "email": "kamal@gmail.com",
+    "status": "stage-1",
+    "created_at": "1655798387860",
+    "created_date": "2022-06-24T01:59:48",
+    "number_of_trips": 2
+}
+
+Trip Data:
+{
+    "pk": "driver_jakir_01681525138",
+    "sk": "driver_jakir_01681525138",
+    "status": "free",
+    "type": "driver",
+    "license_number": "li-12345",
+    "name": "jakir",
+    "phone": "1681525138"
+}
